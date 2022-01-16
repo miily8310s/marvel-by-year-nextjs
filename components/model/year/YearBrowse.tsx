@@ -1,6 +1,8 @@
 import { publishYears } from '@/utils/yearsUtils'
+import { useRouter } from 'next/router'
 
 export const YearBrowse = () => {
+  const router = useRouter()
   return (
     <div>
       <h1 className="text-2xl">Years</h1>
@@ -13,6 +15,7 @@ export const YearBrowse = () => {
           <li
             key={`${publishYear}_${index}`}
             className="bg-primary hover:bg-primary-focus h-12 max-w-screen-md rounded-box grid place-items-center p-2 hover:cursor-pointer"
+            onClick={() => router.push(`year/${publishYear}`)}
           >
             <a className="font-mono">{publishYear}</a>
           </li>
