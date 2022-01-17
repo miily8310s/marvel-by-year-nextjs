@@ -2,8 +2,32 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { getPageTitle } from '@/utils/stringUtils'
+import {
+  YEAR_PATH,
+  MIN_PUBLISH_YEAR,
+  MAX_PUBLISH_YEAR,
+} from '@/utils/yearsUtils'
 
 const Home: NextPage = () => {
+  const LINK_BUTTONS = [
+    {
+      linkPath: `${YEAR_PATH}`,
+      displayName: 'Browse all years',
+    },
+    {
+      linkPath: `${YEAR_PATH}/${MIN_PUBLISH_YEAR}`,
+      displayName: 'Start at the beginning',
+    },
+    {
+      linkPath: `${YEAR_PATH}/${MAX_PUBLISH_YEAR - 1}`,
+      displayName: "See What's current",
+    },
+    {
+      linkPath: `#`,
+      displayName: 'Get a random comic',
+    },
+  ] as const
+
   return (
     <div>
       <Head>
@@ -28,26 +52,13 @@ const Home: NextPage = () => {
             .
           </p>
           <ul className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            <li className="grid card bg-secondary rounded-box h-32 place-items-center">
-              <Link href="/year" passHref>
-                <a className="font-extrabold font-mono">Browse all years</a>
+            {LINK_BUTTONS.map(({ linkPath, displayName }, index) => (
+              <Link href={linkPath} passHref key={`${displayName}_${index}`}>
+                <li className="grid card bg-secondary rounded-box h-32 place-items-center p-2 hover:cursor-pointer">
+                  <a className="font-extrabold font-mono">{displayName}</a>
+                </li>
               </Link>
-            </li>
-            <li className="grid card bg-secondary rounded-box h-32 place-items-center">
-              <a href="#" className="p-2 font-extrabold font-mono">
-                Start at the beginning
-              </a>
-            </li>
-            <li className="grid card bg-secondary rounded-box h-32 place-items-center">
-              <a href="#" className="p-2 font-extrabold font-mono">
-                See What&apos;s current
-              </a>
-            </li>
-            <li className="grid card bg-secondary rounded-box h-32 place-items-center">
-              <a href="#" className="p-2 font-extrabold font-mono">
-                Get a random comic
-              </a>
-            </li>
+            ))}
           </ul>
         </div>
       </main>
