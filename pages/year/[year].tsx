@@ -2,6 +2,7 @@
 import md5 from 'crypto-js/md5.js'
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
+import Image from 'next/image'
 
 // TODO: 型定義＆api取得部分を外部ファイルへ
 
@@ -12,15 +13,31 @@ interface YearPageProps {
 
 const YearPage = ({ data }: YearPageProps) => {
   return (
-    <div>
+    <div className="grid grid-cols-4">
       {data.map((d) => (
-        <div key={d.id}>{d.title}</div>
+        <div key={d.id} className="">
+          <a href={d.urls[0].url} target="_blank" rel="noreferrer">
+            <figure className="place-items-center">
+              <Image
+                src={`${d.thumbnail.path}/portrait_xlarge.jpg`}
+                alt={`${d.title}-picture`}
+                width={150}
+                height={200}
+              />
+            </figure>
+          </a>
+          <div className="card-body link-primary font-bold">
+            <a href={d.urls[0].url} target="_blank" rel="noreferrer">
+              {d.title}
+            </a>
+          </div>
+        </div>
       ))}
     </div>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (_context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const PUBLIC_KEY = process.env['MARVEL_PUBLIC_KEY'] as string
   const PRIVATE_KEY = process.env['MARVEL_PRIVATE_KEY'] as string
 
@@ -42,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (_context) => {
     return data
   }
 
-  const getComicsSearchParams = (year: number, limit: string) => {
+  const getComicsSearchParams = (year: string, limit: string) => {
     const ts = new Date().getTime().toString()
     return {
       ts,
@@ -58,7 +75,8 @@ export const getServerSideProps: GetServerSideProps = async (_context) => {
     }
   }
 
-  const { data } = await callMarvelApi(getComicsSearchParams(2021, '10'))
+  const year = context.params?.year as string
+  const { data } = await callMarvelApi(getComicsSearchParams(year, '10'))
 
   if (!data) {
     return {
