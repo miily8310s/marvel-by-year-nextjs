@@ -1,13 +1,13 @@
 import md5 from 'crypto-js/md5.js'
 import axios from 'axios'
 
-const PUBLIC_KEY = process.env['MARVEL_PUBLIC_KEY'] as string
-const PRIVATE_KEY = process.env['MARVEL_PRIVATE_KEY'] as string
-
-// TODO: refactor
-
-const API_BASE_URL = 'https://gateway.marvel.com/v1/public/comics'
-const DISPLAY_COMICS_LIMIT = 20
+import { ComicDataWrapper } from '@/entities/model/comic'
+import {
+  PUBLIC_KEY,
+  PRIVATE_KEY,
+  API_BASE_URL,
+  DISPLAY_COMICS_LIMIT,
+} from '@/lib/constants'
 
 export const callMarvelApi = async (params: Record<string, string>) => {
   const ts = Date.now().toString()
@@ -20,29 +20,24 @@ export const callMarvelApi = async (params: Record<string, string>) => {
   const searchParamsWithKey = new URLSearchParams(paramsWithKey).toString()
   const url = new URL(API_BASE_URL)
   url.search = searchParamsWithKey
-  const { data } = await axios.get(url.toString())
-  return data
+  const { data } = await axios.get<ComicDataWrapper>(url.toString())
+  return data.data
 }
 
-const getComicsSearchParams = (
-  year: string,
-  _offset: string,
-  limit: string,
-) => {
+const getComicsSearchParams = (year: string, limit: string) => {
   return {
     formatType: 'comic',
     noVariants: 'true',
     dateRange: `${year}-01-01,${year}-12-31`,
     hasDigitalIssue: 'true',
     limit,
-    // offset,
     orderBy: 'modified',
   }
 }
 
 export const getComics = async (year: string) => {
   const data = await callMarvelApi(
-    getComicsSearchParams(year, year, DISPLAY_COMICS_LIMIT.toString()),
+    getComicsSearchParams(year, DISPLAY_COMICS_LIMIT.toString()),
   )
   return data
 }

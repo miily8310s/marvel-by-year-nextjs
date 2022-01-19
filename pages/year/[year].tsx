@@ -1,35 +1,18 @@
 import { GetServerSideProps } from 'next'
-import Image from 'next/image'
-import { getComics } from 'lib/axios'
-
-// TODO: 型定義＆api取得部分を外部ファイルへ
+import { getComics } from '@/lib/axios'
+import { Comic } from '@/entities/model/comic'
+import { ComicSummary } from '@/components/model/comic/ComicSummary'
 
 interface YearPageProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any
+  comics: Comic[]
 }
 
-const YearPage = ({ data }: YearPageProps) => {
+const YearPage = ({ comics }: YearPageProps) => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
-      {data.map((d) => (
-        <div key={d.id} className="">
-          <a href={d.urls[0].url} target="_blank" rel="noreferrer">
-            <figure className="place-items-center">
-              <Image
-                src={`${d.thumbnail.path}/portrait_xlarge.jpg`}
-                alt={`${d.title}-picture`}
-                width={150}
-                height={200}
-              />
-            </figure>
-          </a>
-          <div className="card-body link-primary font-bold">
-            <a href={d.urls[0].url} target="_blank" rel="noreferrer">
-              {d.title}
-            </a>
-          </div>
-        </div>
+      {comics.length < 1 ?? <div>Nothing to show</div>}
+      {comics.map((comic) => (
+        <ComicSummary comic={comic} key={comic.id} />
       ))}
     </div>
   )
@@ -37,9 +20,9 @@ const YearPage = ({ data }: YearPageProps) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const year = context.params?.year as string
-  const { data } = await getComics(year)
+  const { results } = await getComics(year)
 
-  if (!data) {
+  if (!results) {
     return {
       notFound: true,
     }
@@ -47,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      data: data.results,
+      comics: results,
     },
   }
 }
