@@ -9,7 +9,7 @@ interface YearPageProps {
 
 const YearPage = ({ comics }: YearPageProps) => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
+    <div className="grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
       {comics.length < 1 ?? <div>Nothing to show</div>}
       {comics.map((comic) => (
         <ComicSummary comic={comic} key={comic.id} />

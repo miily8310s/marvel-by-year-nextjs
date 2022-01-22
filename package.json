@@ -27,6 +27,7 @@
     "axios": "^0.24.0",
     "crypto-js": "^4.1.1",
     "daisyui": "^1.22.0",
+    "dayjs": "^1.10.7",
     "eslint": "8.6.0",
     "eslint-config-next": "12.0.7",
     "eslint-config-prettier": "^8.3.0",
