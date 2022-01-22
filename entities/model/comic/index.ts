@@ -59,15 +59,26 @@ interface Url {
   url: string
 }
 
-interface SeriesSummary {
+interface Summary {
   resourceURI: string
   name: string
 }
 
-interface ComicSummary {
-  resourceURI: string
-  name: string
+interface Image {
+  path: string
+  extension: string
 }
+
+interface List<T> {
+  available: number
+  returned: number
+  collectionURI: string
+  items: T[]
+}
+
+type SeriesSummary = Summary
+
+type ComicSummary = Summary
 
 interface ComicDate {
   type: string
@@ -79,58 +90,24 @@ interface ComicPrice {
   price: number
 }
 
-interface Image {
-  path: string
-  extension: string
-}
+type CreatorList = List<CreatorSummary>
 
-interface CreatorList {
-  available: number
-  returned: number
-  collectionURI: string
-  items: CreatorSummary[]
-}
-
-interface CreatorSummary {
-  resourceURI: string
-  name: string
+interface CreatorSummary extends Summary {
   role: string
 }
 
-interface CharacterList {
-  available: number
-  returned: number
-  collectionURI: string
-  items: CharacterSummary[]
-}
+type CharacterList = List<CharacterSummary>
 
-interface CharacterSummary {
-  resourceURI: string
-  name: string
+interface CharacterSummary extends Summary {
   role: string
 }
 
-interface StoryList {
-  available: number
-  returned: number
-  collectionURI: string
-  items: StorySummary[]
-}
+type StoryList = List<StorySummary>
 
-interface StorySummary {
-  resourceURI: string
-  name: string
+interface StorySummary extends Summary {
   type: string
 }
 
-interface EventList {
-  available: number
-  returned: number
-  collectionURI: string
-  items: EventSummary[]
-}
+type EventList = List<EventSummary>
 
-interface EventSummary {
-  resourceURI: string
-  name: string
-}
+type EventSummary = Summary
