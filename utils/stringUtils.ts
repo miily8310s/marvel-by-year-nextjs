@@ -24,7 +24,7 @@ export const getArrayToLimitedText = (array: string[], maxLength: number) => {
 /**
  * 配列を指定した文字で区切った文字列にして返す
  */
-const commaSeparate = (array: string[], spreadChar = ',') => {
+export const commaSeparate = (array: string[], spreadChar = ',') => {
   const last = array.pop()
   return array.join(`${spreadChar} `) + ' and ' + last
 }
