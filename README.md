@@ -1,5 +1,6 @@
 https://github.com/geoffrich/marvel-by-year の Next.js での写経
 
-## TODO List
+## 備考
 
-- Jest のインストール
+- フィルター機能はありません
+- ランダム表示機能もありません
