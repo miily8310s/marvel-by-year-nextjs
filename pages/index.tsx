@@ -19,23 +19,19 @@ const Home: NextPage = () => {
       displayName: 'Start at the beginning',
     },
     {
-      linkPath: `${YEAR_PATH}/${MAX_PUBLISH_YEAR - 1}`,
+      linkPath: `${YEAR_PATH}/${MAX_PUBLISH_YEAR}`,
       displayName: "See What's current",
-    },
-    {
-      linkPath: `#`,
-      displayName: 'Get a random comic',
     },
   ] as const
 
   return (
-    <div>
+    <>
       <Head>
         <title>{getPageTitle('Home')}</title>
       </Head>
       <main>
         <div className="hero-content flex-col">
-          <h1 className="text-2xl font-mono font-bold">
+          <h1 className="text-3xl font-mono font-extrabold">
             Browse Marvel Unlimited by Year
           </h1>
           <p className="md:max-w-screen-md lg:max-w-screen-lg">
@@ -51,7 +47,7 @@ const Home: NextPage = () => {
             </a>
             .
           </p>
-          <ul className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <ul className="grid md:grid-cols-3 gap-10">
             {LINK_BUTTONS.map(({ linkPath, displayName }, index) => (
               <Link href={linkPath} passHref key={`${displayName}_${index}`}>
                 <li className="grid card bg-secondary rounded-box h-32 place-items-center p-2 hover:cursor-pointer">
@@ -62,7 +58,7 @@ const Home: NextPage = () => {
           </ul>
         </div>
       </main>
-    </div>
+    </>
   )
 }
 

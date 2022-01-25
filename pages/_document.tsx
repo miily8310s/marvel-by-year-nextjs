@@ -37,7 +37,7 @@ class MyDocument extends Document {
             content="See what issues are available on MU for a given year."
           />
         </Head>
-        <body className="hero  min-h-screen">
+        <body className="min-h-screen m-3">
           <Main />
           <NextScript />
         </body>
