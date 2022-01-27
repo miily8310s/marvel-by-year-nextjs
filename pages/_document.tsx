@@ -1,24 +1,6 @@
-import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  // DocumentContext,
-  // DocumentInitialProps,
-} from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 class MyDocument extends Document {
-  /**
-   * @see https://nextjs.org/docs/advanced-features/custom-document
-   * @todo ここ不要か確認する
-   */
-  // static async getInitialProps(
-  //   ctx: DocumentContext,
-  // ): Promise<DocumentInitialProps> {
-  //   const initialProps = await Document.getInitialProps(ctx)
-  //   return { ...initialProps }
-  // }
-
   render() {
     return (
       <Html data-theme="cupcake">
