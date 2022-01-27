@@ -40,7 +40,8 @@
     "typescript": "4.5.4"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.--fix": "prettier --write"
+    "*.{ts,tsx}": [
+      "yarn format"
+    ]
   }
 }
