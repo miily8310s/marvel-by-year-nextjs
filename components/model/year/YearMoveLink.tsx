@@ -12,18 +12,29 @@ type YearMoveLinkProps = {
 export const YearMoveLink = ({ year }: YearMoveLinkProps) => {
   return (
     <div className=" mt-3">
-      <h1 className="text-3xl font-mono font-extrabold">Comic for {year}</h1>
+      <h1
+        className="text-3xl font-mono font-extrabold"
+        data-testid="year-title"
+      >
+        Comic for {year}
+      </h1>
       <div className="mt-2 text-blue-800">
         {year > MIN_PUBLISH_YEAR && (
           <Link href={`${YEAR_PATH}/${year - 1}`} passHref>
-            <a className="hover:opacity-50 border-b-2 border-blue-800">
+            <a
+              className="hover:opacity-50 border-b-2 border-blue-800"
+              data-testid="previous-year-link"
+            >
               Previous Year
             </a>
           </Link>
         )}{' '}
         {year < MAX_PUBLISH_YEAR && (
           <Link href={`${YEAR_PATH}/${year + 1}`} passHref>
-            <a className="hover:opacity-50 border-b-2 border-blue-800">
+            <a
+              className="hover:opacity-50 border-b-2 border-blue-800"
+              data-testid="next-year-link"
+            >
               Next Year
             </a>
           </Link>

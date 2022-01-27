@@ -14,6 +14,7 @@ export const YearBrowse = () => {
         {publishYears.map((publishYear, index) => (
           <li
             key={`${publishYear}_${index}`}
+            data-testid={`${publishYear}-link`}
             className="bg-primary hover:bg-primary-focus h-12 max-w-screen-md rounded-box grid place-items-center p-2 hover:cursor-pointer"
             onClick={() => router.push(`year/${publishYear}`)}
           >
