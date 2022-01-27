@@ -1,4 +1,6 @@
 import { GetServerSideProps } from 'next'
+import Head from 'next/head'
+import { getPageTitle } from '@/utils/stringUtils'
 import { getComics } from '@/lib/axios'
 import { Comic } from '@/entities/model/comic'
 import { YearMoveLink } from '@/components/model/year/YearMoveLink'
@@ -11,15 +13,20 @@ interface YearPageProps {
 
 const YearPage = ({ year, comics }: YearPageProps) => {
   return (
-    <div className="container">
-      <YearMoveLink year={year} />
-      <div className="grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
-        {comics.length < 1 ?? <div>Nothing to show</div>}
-        {comics.map((comic) => (
-          <ComicSummary comic={comic} key={comic.id} />
-        ))}
+    <>
+      <Head>
+        <title>{getPageTitle(`Comic in ${year}`)}</title>
+      </Head>
+      <div className="container">
+        <YearMoveLink year={year} />
+        <div className="grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
+          {comics.length < 1 ?? <div>Nothing to show</div>}
+          {comics.map((comic) => (
+            <ComicSummary comic={comic} key={comic.id} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
