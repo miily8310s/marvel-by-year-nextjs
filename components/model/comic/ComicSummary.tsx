@@ -43,12 +43,17 @@ export const ComicSummary = ({ comic }: ComicSummaryProps) => {
           target="_blank"
           rel="noreferrer"
           className="text-center"
+          data-testid="comic-title-link"
         >
           {comic.title}
         </a>
       </div>
-      <p className="text-center">{comicSaleDate}</p>
-      <p className="px-4">{creatorsText}</p>
+      <p className="text-center" data-testid="comic-sale-date">
+        {comicSaleDate}
+      </p>
+      <p className="px-4" data-testid="comic-creators">
+        {creatorsText}
+      </p>
     </div>
   )
 }
